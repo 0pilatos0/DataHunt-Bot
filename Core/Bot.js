@@ -1,6 +1,8 @@
 require('dotenv').config()
 const Discord = require("discord.js")
-const { DiscordAPI } = require('./DiscordAPI')
+const HandleProfile = require('../Handlers/ProfileHandler')
+const DiscordAPI = require('./DiscordAPI')
+const MySQL = require('./MySQL')
 
 const intents = new Discord.Intents(32767)
 
@@ -10,6 +12,7 @@ module.exports = class Bot{
     })
 
     constructor() {
+        // new MySQL()
         this.#bot.login(process.env.TOKEN)
         
         this.#bot.on('ready', () => {
@@ -24,28 +27,29 @@ module.exports = class Bot{
         this.#bot.on('messageCreate', message => {
             if(message.content.startsWith(process.env.PREFIX)){
                 message.content = message.content.substr(1, message.content.length)
-                console.log(message.content)
-                let embed = new Discord.MessageEmbed()
-                .setColor('#00ff00')
-                .addFields(
-                    { name: 'User:', value: message.author.username},
-                    { name: 'Message:', value: message.content},
-                )
-                .setAuthor("DataHunt")
-                .setThumbnail(message.author.avatarURL({
-                    dynamic: true
-                }))
-                .setTimestamp()
-                .setFooter("DataHunt")
-                message.channel.send({embeds: [embed] })
-                switch (`${message.content}`) {
-                    case "pizza":
+                HandleProfile(message)
+                // console.log(message.content)
+                // let embed = new Discord.MessageEmbed()
+                // .setColor('#00ff00')
+                // .addFields(
+                //     { name: 'User:', value: message.author.username},
+                //     { name: 'Message:', value: message.content},
+                // )
+                // .setAuthor("DataHunt")
+                // .setThumbnail(message.author.avatarURL({
+                //     dynamic: true
+                // }))
+                // .setTimestamp()
+                // .setFooter("DataHunt")
+                // message.channel.send({embeds: [embed] })
+                // switch (`${message.content}`) {
+                //     case "pizza":
                         
-                        break;
+                //         break;
                 
-                    default:
-                        break;
-                }
+                //     default:
+                //         break;
+                // }
             }
             
         })
