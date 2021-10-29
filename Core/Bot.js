@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Discord = require("discord.js")
 const HandleProfile = require('../Handlers/ProfileHandler')
+const ShowTemp = require('../Handlers/TempHandler')
 const DiscordAPI = require('./DiscordAPI')
 const MySQL = require('./MySQL')
 
@@ -19,6 +20,7 @@ module.exports = class Bot{
             console.log(`${this.#bot.user.username} is online!`)
             this.#bot.user.setStatus("dnd")
             this.#bot.user.setActivity("DataHunt Gate", ({type: 'WATCHING'}))
+            ShowTemp(this.#bot)
             //this.#bot.user.setActivity("DataHunt Game", Discord.ActivityFlags.FLAGS.PLAY)
             // DiscordAPI.Send(":white_check_mark:")
             // DiscordAPI.Send(":x:")
@@ -53,5 +55,9 @@ module.exports = class Bot{
             }
             
         })
+
+        setInterval(() => {
+            ShowTemp(this.#bot)
+        }, 5 * 1000 * 60)
     }
 }
