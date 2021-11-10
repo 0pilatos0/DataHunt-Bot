@@ -17,7 +17,7 @@ module.exports = async function HandleProfile(message){
             }))
             let userId = await User.FindId({
                 where: {
-                    username: message.author.username
+                    username: message.member.nickname
                 }
             })
             if(userId){
@@ -31,7 +31,7 @@ module.exports = async function HandleProfile(message){
                 let embed = new Discord.MessageEmbed()
                 .setColor('#00ff00')
                 .addFields(
-                    { name: 'Showing profile of:', value: message.author.username},
+                    { name: 'Showing profile of:', value: message.member.nickname},
                 )
                 .setAuthor("DataHunt")
                 .setThumbnail('attachment://profilePicture.jpeg')
