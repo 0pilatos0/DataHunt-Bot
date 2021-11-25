@@ -7,17 +7,19 @@ const ProfilePicture = require('../Models/ProfilePicture')
  * @param {Discord.Message} message 
  */
 module.exports = async function HandleProfile(message){
-    console.log(message.author.username)
-    console.log(message.content)
+    // console.log(message.author.username)
+    // console.log(message.content)
+    // console.log(message.member.nickname)
+    let username = message.member.nickname ? message.member.nickname : message.author.username
     switch (message.content) {
         case "p":
         case "profile":
-            console.log(message.author.avatarURL({
-                dynamic: true
-            }))
+            // console.log(message.author.avatarURL({
+            //     dynamic: true
+            // }))
             let userId = await User.FindId({
                 where: {
-                    username: message.member.nickname
+                    username
                 }
             })
             if(userId){
@@ -31,7 +33,7 @@ module.exports = async function HandleProfile(message){
                 let embed = new Discord.MessageEmbed()
                 .setColor('#00ff00')
                 .addFields(
-                    { name: 'Showing profile of:', value: message.member.nickname},
+                    { name: 'Showing profile of:', value: username},
                 )
                 .setAuthor("DataHunt")
                 .setThumbnail('attachment://profilePicture.jpeg')
