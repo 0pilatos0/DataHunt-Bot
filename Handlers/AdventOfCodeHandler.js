@@ -22,6 +22,8 @@ module.exports = async function HandleAdventOfCode(message){
             embed.addField(member.name, `${member.stars} [${process.env.GITHUBICON}](https://www.github.com/${member.name.replace(" ", "")})`)
         })
         message.channel.send({embeds: [embed]})
+        //TODO at last refreshed at
+        //TODO url to leaderboard
     }
 }
 
