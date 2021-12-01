@@ -1,6 +1,4 @@
 const Discord = require('discord.js')
-const User = require('../Models/User')
-const ProfilePicture = require('../Models/ProfilePicture')
 const Fetch = require('../Core/Fetch')
 
 let stats = undefined
@@ -16,12 +14,12 @@ module.exports = async function HandleAdventOfCode(message){
     if(message.content == "stats"){
         let embed = new Discord.MessageEmbed()
             .setColor('#00ff00')
-            .setTitle(`Advent of Code ${stats.event}`)
+            .setTitle(`Advent of Code ${stats.title}`)
             .setAuthor("DataHunt")
             .setTimestamp()
             .setFooter("DataHunt")
         stats.members.map(member => {
-            embed.addField(member.name, member.stars)
+            embed.addField(member.name, `${member.stars} [GitHub](https://www.github.com/${member.name.replace(" ", "")})`)
         })
         message.channel.send({embeds: [embed]})
     }
