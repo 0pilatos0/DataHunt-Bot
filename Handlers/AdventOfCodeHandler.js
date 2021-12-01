@@ -34,8 +34,12 @@ async function fetchStats(){
     Object.values(data.members).map(member => {
         members.push({
             name: member.name,
-            stars: `${member.stars} ⭐`
+            stars: `${member.stars} ⭐`,
+            score: member.local_score
         })
+    })
+    members.sort((a, b) => {
+        return (a.score > b.score) ? -1 : 1
     })
     stats = {
         title,
