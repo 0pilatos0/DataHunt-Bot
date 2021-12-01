@@ -1,5 +1,6 @@
 require('dotenv').config()
 const Discord = require("discord.js")
+const HandleAdventOfCode = require('../Handlers/AdventOfCodeHandler')
 const HandleProfile = require('../Handlers/ProfileHandler')
 const ShowTemp = require('../Handlers/TempHandler')
 const DiscordAPI = require('./DiscordAPI')
@@ -30,6 +31,7 @@ module.exports = class Bot{
             if(message.content.startsWith(process.env.PREFIX)){
                 message.content = message.content.substr(1, message.content.length)
                 HandleProfile(message)
+                HandleAdventOfCode(message)
                 // console.log(message.content)
                 // let embed = new Discord.MessageEmbed()
                 // .setColor('#00ff00')
