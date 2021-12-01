@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const Fetch = require('../Core/Fetch')
 
 let stats = undefined
+let refreshedAt = undefined
 
 /**
  * 
@@ -14,20 +15,19 @@ module.exports = async function HandleAdventOfCode(message){
     if(message.content == "stats"){
         let embed = new Discord.MessageEmbed()
             .setColor('#00ff00')
-            .setTitle(`Advent of Code ${stats.title}`)
+            .setTitle(stats.title)
             .setAuthor("DataHunt")
-            .setTimestamp()
-            .setFooter("DataHunt")
+            .setFooter(`Refreshed at: ${refreshedAt.toLocaleString()}`)
         stats.members.map(member => {
             embed.addField(member.name, `${member.stars} [${process.env.GITHUBICON}](https://www.github.com/${member.name.replace(" ", "")})`)
         })
+        embed.addField(`Advent of Code`, `[Leaderboard](${process.env.ADVENTOFCODE.replace(".json", "")})`)
         message.channel.send({embeds: [embed]})
-        //TODO at last refreshed at
-        //TODO url to leaderboard
     }
 }
 
 async function fetchStats(){
+    refreshedAt = new Date()
     let data = await Fetch(process.env.ADVENTOFCODE)
     let title = `Advent of Code ${data.event}`
     let members = []
