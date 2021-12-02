@@ -19,7 +19,7 @@ module.exports = async function HandleAdventOfCode(message){
             .setAuthor("DataHunt")
             .setFooter(`Refreshed at: ${refreshedAt.toLocaleString()}`)
         stats.members.map(member => {
-            embed.addField(member.name, `${member.stars} [${process.env.GITHUBICON}](https://www.github.com/${member.name.replace(" ", "")})`)
+            embed.addField(member.name, `${member.stars} [${process.env.GITHUBICON}](https://www.github.com/${member.name.replace(/\s/g, "")})`)
         })
         embed.addField(`Advent of Code`, `[Leaderboard](${process.env.ADVENTOFCODE.replace(".json", "")})`)
         message.channel.send({embeds: [embed]})
